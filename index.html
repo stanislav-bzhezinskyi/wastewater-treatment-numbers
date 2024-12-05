@@ -5,117 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <script src="service-worker.js"></script>
-  <script>
-      if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js').catch((err) => {
-              console.error('Service Worker registration failed:', err);
-          });
-      }
-  </script>
-
   <title>Document</title>
-  
 </head>
 <body>
-
-  <div id="container" class="container">
-
-    <div class="page page-1" id="page-1">
-      <h2>Page 1</h2>
-      <div class="input-container">
-        <label for="date">DATE</label>
-        <input type="date" name="date" id="date" class="input date" >
+  <div class="container">
+    <div class="selected-elements">
+      <div class="flow-meter elements" id="flow-meter">Flow Meter</div>
+      <div class="power-units elements">Power Units</div>
+      <div class="cylinders elements">Cylinders</div>
+      <div class="pumps elements">Pumps</div>
+    </div>
+    <div class="date">
+      <input type="date" name="date" id="date" class="input">
+      <input type="time" name="time" id="time" class="input">
+    </div>
+    <div class="content-container">
+      <div class="flow-meter-content content">
+        <div class="previous-value" id="previous-flow-meter">000</div>
+        <input type="number" name="flow-meter" id="flow-meter" class="flow-meter-input input" value="">
+        <div class="result" >0 mGd</div>
       </div>
-      <div class="input-container">
-        <label for="cyrcle-meter">Cyrcle meter</label>
-        <input type="number" name="cyrcle-meter" class="input cyrcle-meter" id="cyrcle-meter" value="" placeholder="">
+      <div class="power-units-content content">
+        <input type="number" class="power-unit_1 input" id="power-unit_1">
+        <input type="number" class="power-unit_2 input">
+        <input type="number" class="power-unit_3 input">
       </div>
-      <div class="links">
-        <button class="link-next button">next page</button>
+      <div class="cylinder-elements-content content">
+        <input type="number" class="cylinder_1 input">
+        <input type="number" class="cylinder_2 input">
+        <input type="number" class="cylinder_3 input">
+        <input type="number" class="cylinder_4 input">
+      </div>
+      <div class="pumps-content content">
+        <input type="text" class="input pump_1">
+        <input type="text" class="input pump_2">
+        <input type="text" class="input pump_3" value="418561">
+        <input type="text" class="input pump_4" value="028260">
+        <input type="text" class="input pump_5" value="">
       </div>
     </div>
-
-    <div class="page page-2" id="page-2">
-      <h2>Page 2</h2>
-      <div class="input-container">
-        <label for="count-1">Count 1</label>
-        <input type="number" name="count" id="count-1" class="input count-1" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="count-2">Count 2</label>
-        <input type="number" name="count" id="count-2" class="input count-2" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="count-3">Count 3</label>
-        <input type="number" name="count" id="count-3" class="input count-3" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="count-4">Count 4</label>
-        <input type="number" name="count" id="count-4" class="input count-4" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="count-5">Count 5</label>
-        <input type="number" name="count" id="count-5" class="input count-5" value="" placeholder="">
-      </div>
-      <div class="links">
-        <button class="link-previous button">previous page</button>
-        <button class="link-next button">next page</button>
-      </div>
+    <div class="buttons-container">
+      <button class="save-button button" id="save-button">Save to file</button>
+      <label for="load-button" class="load-button button">Load file</label>
+      <input type="file" name="load" id="load-button">
     </div>
-
-    <div class="page page-3" id="page-3">
-      <h2>Page 3</h2>
-      <div class="input-container">
-        <label for="cylinder-1">Cylinder 1</label>
-        <input type="number" name="count" id="cylinder-1" class="input cylinder-1" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="cylinder-2">Cylinder 2</label>
-        <input type="number" name="count" id="cylinder-2" class="input cylinder-2" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="cylinder-3">Cylinder 3</label>
-        <input type="number" name="count" id="cylinder-3" class="input cylinder-3" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="cylinder-4">Cylinder 4</label>
-        <input type="number" name="count" id="cylinder-4" class="input cylinder-4" value="" placeholder="">
-      </div>
-      <div class="links">
-        <button class="link-previous button">previous page</button>
-        <button class="link-next button">next page</button>
-      </div>
-    </div>
-
-    <div class="page page-4" id="page-4">
-      <h2>Page 4</h2>
-      <div class="input-container">
-        <label for="pump-1">Pump 1</label>
-        <input type="number" name="count" id="pump-1" class="input pump-1" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="pump-2">Pump 2</label>
-        <input type="number" name="count" id="pump-2" class="input pump-2" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="pump-3">Pump 3</label>
-        <input type="number" name="count" id="pump-3" class="input pump-3" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="pump-4">Pump 4</label>
-        <input type="number" name="count" id="pump-4" class="input pump-4" value="" placeholder="">
-      </div>
-      <div class="input-container">
-        <label for="pump-5">Pump 5</label>
-        <input type="number" name="count" id="pump-5" class="input pump-5" value="" placeholder="">
-      </div>
-      <button class="link-previous button">previous page</button>
-      <button class="button save-button">save to file</button>
-    </div>
-
   </div>
-
 </body>
 </html>

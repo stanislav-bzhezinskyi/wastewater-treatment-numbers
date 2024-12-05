@@ -1,102 +1,172 @@
-// Отримуємо всі сторінки
-const pages = document.querySelectorAll('.page');
-const dateInput = document.querySelector('.date');
-const cyrcleMeterInput = document.querySelector('.cyrcle-meter');
-const countFirstInput = document.querySelector('.count-1');
-const countSecondInput = document.querySelector('.count-2');
-const countThirdInput = document.querySelector('.count-3');
-const countFourthInput = document.querySelector('.count-4');
-const countFifthInput = document.querySelector('.count-5');
-const cylinderFirstInput = document.querySelector('.cylinder-1');
-const cylinderSecondInput = document.querySelector('.cylinder-2');
-const cylinderThirdInput = document.querySelector('.cylinder-3');
-const cylinderFourthInput = document.querySelector('.cylinder-4');
-const pumpFirstInput = document.querySelector('.pump-1');
-const pumpSecondInput = document.querySelector('.pump-2');
-const pumpThirdInput = document.querySelector('.pump-3');
-const pumpFourthInput = document.querySelector('.pump-4');
-const pumpFifthInput = document.querySelector('.pump-5');
-const saveButton = document.querySelector('.save-button');
+const elements = document.querySelectorAll('.elements');
+const inputs = document.querySelectorAll('.input');
+const flowMeter = document.querySelector('.flow-meter-content');
+const powerUnits = document.querySelector('.power-units-content');
+const cylinderElements = document.querySelector('.cylinder-elements-content');
+const pumps = document.querySelector('.pumps-content');
+const previousValue = document.querySelector('.previous-value');
+const flowResult = document.querySelector('.result');
+const saveToFileButton = document.getElementById('save-button');
+const loadFile = document.getElementById('load-button');
 
-// Функція для збирання даних з input-полів
-function collectData() {
+const date = document.querySelector('#date');
+const time = document.querySelector('#time');
+
+const flowMeterInput = document.querySelector('.flow-meter-input');
+
+const powerUnit_1 = document.querySelector('.power-unit_1');
+const powerUnit_2 = document.querySelector('.power-unit_2');
+const powerUnit_3 = document.querySelector('.power-unit_3');
+
+const cylinder_1 = document.querySelector('.cylinder_1');
+const cylinder_2 = document.querySelector('.cylinder_2');
+const cylinder_3 = document.querySelector('.cylinder_3');
+const cylinder_4 = document.querySelector('.cylinder_4');
+
+const pump_1 = document.querySelector('.pump_1');
+const pump_2 = document.querySelector('.pump_2');
+const pump_3 = document.querySelector('.pump_3');
+const pump_4 = document.querySelector('.pump_4');
+const pump_5 = document.querySelector('.pump_5');
+
+loadFile.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result); // Розбираємо JSON
+        console.log(data);
+        
+        // Встановлюємо значення в інпути
+        previousValue.textContent = data.flow_meter;
+        powerUnit_1.placeholder = data.power_unit_1;
+        powerUnit_2.placeholder = data.power_unit_2;
+        powerUnit_3.placeholder = data.power_unit_3;
+        cylinder_1.placeholder = data.cylinder_1;
+        cylinder_2.placeholder = data.cylinder_2;
+        cylinder_3.placeholder = data.cylinder_3;
+        cylinder_4.placeholder = data.cylinder_4;
+        pump_1.placeholder = data.pump_1;
+        pump_2.placeholder = data.pump_2;
+        pump_5.placeholder = data.pump_5;
+      } catch (error) {
+        alert('Invalid JSON file!');
+      }
+    };
+
+    reader.readAsText(file); // Читаємо файл як текст
+  } else {
+    alert('No file selected!');
+  }
+})
+
+window.addEventListener('keyup', () => {
+  isActive();
+})
+
+window.addEventListener('mousedown', () => {
+  isActive();
+})
+
+const isActive = () => {
+  inputs.forEach((el) => {
+    
+    el.value ? saveToFileButton.disabled = false : saveToFileButton.disabled = true;
+    if (date.value === '' && time.value === '') {
+      saveToFileButton.disabled = true;
+    }
+  })
+}
+
+saveToFileButton.addEventListener('click', () => {
   const data = {
-    date: dateInput.value,
-    cyrcleMeter: cyrcleMeterInput.value,
-    counts: {
-      count1: countFirstInput.value,
-      count2: countSecondInput.value,
-      count3: countThirdInput.value,
-      count4: countFourthInput.value,
-      count5: countFifthInput.value,
-    },
-    cylinders: {
-      cylinder1: cylinderFirstInput.value,
-      cylinder2: cylinderSecondInput.value,
-      cylinder3: cylinderThirdInput.value,
-      cylinder4: cylinderFourthInput.value,
-    },
-    pumps: {
-      pump1: pumpFirstInput.value,
-      pump2: pumpSecondInput.value,
-      pump3: pumpThirdInput.value,
-      pump4: pumpFourthInput.value,
-      pump5: pumpFifthInput.value,
-    },
-  };
+    date: date.value,
+    time: time.value,
+    flow_meter: flowMeterInput.value,
+    power_unit_1: powerUnit_1.value,
+    power_unit_2: powerUnit_2.value,
+    power_unit_3: powerUnit_3.value,
+    cylinder_1: cylinder_1.value,
+    cylinder_2: cylinder_2.value,
+    cylinder_3: cylinder_3.value,
+    cylinder_4: cylinder_4.value,
+    pump_1: pump_1.value,
+    pump_2: pump_2.value,
+    pump_3: pump_3.value,
+    pump_4: pump_4.value,
+    pump_5: pump_5.value
+  }
 
-  return data;
-}
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
 
-// Функція для збереження даних у файл JSON
-function saveDataToFile(data) {
-    const fileName = `${new Date().toISOString().split('T')[0]}.json`; // Назва файлу у форматі YYYY-MM-DD.json
-    const jsonData = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonData], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    link.click();
-}
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${data.date}.json`;
+  a.click();
 
-// Додаємо обробник подій для кнопки "save to file"
-saveButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  saveDataToFile();
-});
+  URL.revokeObjectURL(url); // Очищуємо пам'ять
+})
 
 
 
+flowMeter.addEventListener('keyup', (event) => {
+  flowResult.textContent = Math.round(+(event.target.value) - +(previousValue.textContent)) / 1000 + ' mGd';
+})
 
-// Ініціалізуємо індекс поточної сторінки
-let currentPageIndex = 0;
 
-// Функція для оновлення відображення сторінок
-function updatePages() {
-  pages.forEach((page, index) => {
-    page.style.display = index === currentPageIndex ? 'flex' : 'none';
-  });
-}
+const selectedElement = () => {
+  
 
-// Ініціалізація - показати першу сторінку
-updatePages();
-
-// Делегування подій для "next" і "previous"
-document.querySelector('#container').addEventListener('click', (event) => {
-  if (event.target.classList.contains('link-next')) {
-    event.preventDefault();
-    if (currentPageIndex < pages.length - 1) {
-      currentPageIndex++;
-      updatePages();
+  const saveBackgroundColor = () => {
+    for(let element of elements) {
+      element.style.backgroundColor = 'white';
     }
   }
 
-  if (event.target.classList.contains('link-previous')) {
-    event.preventDefault();
-    if (currentPageIndex > 0) {
-      currentPageIndex--;
-      updatePages();
+  const showContent = (value) => {
+    
+    if (value === 'Flow Meter') {
+      flowMeter.style.display = 'flex';
+      powerUnits.style.display = 'none';
+      cylinderElements.style.display = 'none';
+      pumps.style.display = 'none';
+    }
+
+    if (value === 'Power Units') {
+      flowMeter.style.display = 'none';
+      powerUnits.style.display = 'flex';
+      cylinderElements.style.display = 'none';
+      pumps.style.display = 'none';
+    }
+
+    if (value === 'Cylinders') {
+      flowMeter.style.display = 'none';
+      powerUnits.style.display = 'none';
+      cylinderElements.style.display = 'flex';
+      pumps.style.display = 'none';
+    }
+
+    if (value === 'Pumps') {
+      flowMeter.style.display = 'none';
+      powerUnits.style.display = 'none';
+      cylinderElements.style.display = 'none';
+      pumps.style.display = 'flex';
     }
   }
-});
+  
+  for (let element of elements) {
+    element.addEventListener('click', (event) => {
+      saveBackgroundColor();
+      event.target.style.backgroundColor = 'red';
+      showContent(event.target.textContent);
+    })
+  }
+}
 
+selectedElement();
+
+isActive();
