@@ -12,6 +12,7 @@ body {
   flex-direction: column;
   padding: 15px;
   width: 100vw;
+  max-width: 1000px;
   box-sizing: border-box;
   background-color: blanchedalmond;
 }
