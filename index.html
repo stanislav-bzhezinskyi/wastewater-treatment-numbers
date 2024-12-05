@@ -5,48 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="wastewater-treatment-icon.png" type="image/png">
   <title>Document</title>
 </head>
 <body>
   <div class="container">
     <div class="selected-elements">
-      <div class="flow-meter elements" id="flow-meter">Flow Meter</div>
-      <div class="power-units elements">Power Units</div>
-      <div class="cylinders elements">Cylinders</div>
-      <div class="pumps elements">Pumps</div>
+      <div class="flow-meter elements label-title" id="flow-meter">Flow Meter</div>
+      <div class="power-units elements label-title">Power Units</div>
+      <div class="cylinders elements label-title">Cylinders</div>
+      <div class="pumps elements label-title">Pumps</div>
     </div>
     <div class="date">
-      <input type="date" name="date" id="date" class="input">
-      <input type="time" name="time" id="time" class="input">
+      <div class="wrap">
+        <label for="date" class="label-title">Date:</label>
+        <input type="date" name="date" id="date" class="input">
+      </div>
+      <div class="wrap">
+        <label for="time" class="label-title">Time:</label>
+        <input type="time" name="time" id="time" class="input">
+      </div>
     </div>
     <div class="content-container">
       <div class="flow-meter-content content">
+        <label for="previous-flow-meter" class="label-title">Previous meter</label>
         <div class="previous-value" id="previous-flow-meter">000</div>
+        <label for="flow-meter" class="label-title">Current meter</label>
         <input type="number" name="flow-meter" id="flow-meter" class="flow-meter-input input" value="">
         <div class="result" >0 mGd</div>
       </div>
       <div class="power-units-content content">
-        <input type="number" class="power-unit_1 input" id="power-unit_1">
-        <input type="number" class="power-unit_2 input">
-        <input type="number" class="power-unit_3 input">
+        <div class="wrap">
+          <label for="power-unit_1" class="label-title">Power Unit 1</label>
+          <input type="number" class="power-unit_1 input" id="power-unit_1">
+        </div>
+        <div class="wrap">
+          <label for="power-unit_2" class="label-title">Power Unit 2</label>
+          <input type="number" class="power-unit_2 input">
+        </div>
+        <div class="wrap">
+          <label for="power-unit_3" class="label-title">Power Unit 3</label>
+          <input type="number" class="power-unit_3 input">
+        </div>
       </div>
       <div class="cylinder-elements-content content">
-        <input type="number" class="cylinder_1 input">
-        <input type="number" class="cylinder_2 input">
-        <input type="number" class="cylinder_3 input">
-        <input type="number" class="cylinder_4 input">
+        <div class="wrap">
+          <label for="cylinder_1" class="label-title">Cylinder 1</label>
+          <input type="number" class="cylinder_1 input" id="cylinder_1">
+        </div>
+        <div class="wrap">
+          <label for="cylinder_2" class="label-title">Cylinder 2</label>
+          <input type="number" class="cylinder_2 input">
+        </div>
+        <div class="wrap">
+          <label for="cylinder_3" class="label-title">Cylinder 3</label>
+          <input type="number" class="cylinder_3 input">
+        </div>
+        <div class="wrap">
+          <label for="cylinder_4" class="label-title">Cylinder 4</label>
+          <input type="number" class="cylinder_4 input">
+        </div>
       </div>
       <div class="pumps-content content">
-        <input type="number" class="input pump_1">
-        <input type="number" class="input pump_2">
-        <input type="number" class="input pump_3" value="418561">
-        <input type="number" class="input pump_4" value="028260">
-        <input type="number" class="input pump_5" value="">
+        <div class="wrap">
+          <label for="pump_1" class="label-title">Pump 1</label>
+          <input type="number" class="input pump_1" id="pump_1">
+        </div>
+        <div class="wrap">
+          <label for="pump_2" class="label-title">Pump 2</label>
+          <input type="number" class="input pump_2" id="pump_2">
+        </div>
+        <div class="wrap">
+          <label for="pump_3" class="label-title">Pump 3</label>
+          <input type="number" class="input pump_3" value="418561" id="pump_3">
+        </div>
+        <div class="wrap">
+          <label for="pump_4" class="label-title">Pump 4</label>
+          <input type="number" class="input pump_4" value="028260" id="pump_4">
+        </div>
+        <div class="wrap">
+          <label for="pump_5" class="label-title">Pump 5</label>
+          <input type="number" class="input pump_5" value="" id="pump_5">
+        </div>
       </div>
     </div>
     <div class="buttons-container">
-      <button class="save-button button" id="save-button">Save to file</button>
-      <label for="load-button" class="load-button button">Load file</label>
+
+      <button class="save-button button label-title" id="save-button">Save to file</button>
+      <label for="load-button" class="load-button button label-title">Load file</label>
       <input type="file" name="load" id="load-button">
     </div>
   </div>
