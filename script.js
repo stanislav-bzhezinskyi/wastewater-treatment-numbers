@@ -114,7 +114,7 @@ saveToFileButton.addEventListener('click', () => {
 
 
 flowMeter.addEventListener('keyup', (event) => {
-  flowResult.textContent = Math.round(+(event.target.value) - +(previousValue.textContent)) / 1000 + ' mGd';
+  flowResult.textContent = Math.round(+(event.target.value) - +(previousValue.value)) / 1000 + ' mGd';
 })
 
 
